@@ -5,6 +5,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CreateTrip from "./trip/index.jsx";
 import Header from "./components/Custom/Header.jsx";
+import Footer from "./components/Custom/Footer.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,5 +22,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Header />
     <RouterProvider router={router} />
+    <Footer />
   </React.StrictMode>
 );

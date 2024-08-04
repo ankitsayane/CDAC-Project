@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -14,9 +15,10 @@ function Home() {
         Create, customize, and enhance your travel plans with our AI-powered
         trip planner.
       </p>
-      <Button>Explore Now</Button>
+      <Link to={"/trip"}>
+        <Button>Explore Now</Button>
+      </Link>
       <img src="./home.png" />
-      <p className="mb-1 text-gray-800">© 2024 Compassly. All Right Reserved</p>
     </div>
   );
 }
