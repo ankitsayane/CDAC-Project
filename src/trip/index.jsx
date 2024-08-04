@@ -1,13 +1,50 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BudgetOptions, TravlersList } from "@/constants/options";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 function CreateTrip() {
+  const [place, setPlace] = useState();
+
+  const [travelData, setTravelData] = useState([]);
+  const [otherTraveler, setOtherTraveler] = useState('');
+
+  const handlePlanChange = (name, value) => {
+
+    if (name == 'days' && value > 30) {
+      alert('Maximum days allowed is 30');
+      return;
+    }
+    setTravelData({
+      ...travelData,
+      [name]: value
+    })
+  }
+
+  useEffect(() => {
+    console.log(travelData);
+  }, [travelData])
+
+  const OnCreateTrip = () => {
+    if (travelData?.days > 30) {
+      return;
+    }
+  }
+
+  const handleOtherPlanChange = (e)=>{
+    setOtherTraveler(e.target.value);
+    setTravelData({
+      ...travelData,
+      travlers: e.target.value
+    });
+  };
+
+
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
       <h2 className="font-bold text-3xl text-center">
-        Please share your travel preferences with us.
+        Please share your travel preferences with us🧳🗺️
       </h2>
       <p className="mt-3 text-gray-500 text-xl text-center">
         Simply provide some basic details, and our trip planner will create a
@@ -18,13 +55,29 @@ function CreateTrip() {
         <div>
           <h2 className="text-xl font-medium">
             Which destination would you like to choose?
+            <GooglePlacesAutocomplete
+              apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
+              selectProps={{
+                place,
+                onChange: (x) => {
+                  setPlace(x);
+                  handlePlanChange('plan', x)
+                }
+              }}
+            >
+            </GooglePlacesAutocomplete>
           </h2>
         </div>
+
         <div>
           <h2 className="text-xl font-medium">
             How many days do you plan to spend on your trip?
           </h2>
-          <Input placeholder={"Ex-3"} type="number" className="mt-2 w-full" />
+          <Input placeholder={"Ex-10"} type="number" className="mt-2 w-full"
+            onChange={
+              (e) => handlePlanChange('days', e.target.value)
+            }
+          />
         </div>
       </div>
 
@@ -36,7 +89,12 @@ function CreateTrip() {
           {BudgetOptions.map((item, index) => (
             <div
               key={index}
-              className="p-4 border rounded-lg cursor-pointer hover:shadow-lg"
+              onClick={
+                () => handlePlanChange('budget', item.title)
+              }
+              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg
+                ${travelData?.budget == item.title && 'shadow-lg border-black'}
+              `}
             >
               <h2 className="text-4xl text-center">{item.icon}</h2>
               <h2 className="font-bold text-lg text-center mt-2">
@@ -58,7 +116,10 @@ function CreateTrip() {
           {TravlersList.map((item, index) => (
             <div
               key={index}
-              className="p-4 border rounded-lg cursor-pointer hover:shadow-lg"
+              onClick={() => handlePlanChange('travlers', item.people)}
+              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg"
+              ${travelData?.travlers == item.people && 'shadow-lg border-black'}
+              `}
             >
               <h2 className="text-4xl text-center">{item.icon}</h2>
               <h2 className="font-bold text-lg text-center mt-2">
@@ -69,14 +130,30 @@ function CreateTrip() {
               </h2>
             </div>
           ))}
+
         </div>
+        {travelData?.travlers === 'Any Number' && (
+          <div className="mt-5">
+            <Input
+              placeholder="Please specify the number of travel comapanions"
+              value={otherTraveler}
+              onChange={
+                handleOtherPlanChange              
+              }
+            />
+
+          </div>
+        )}
       </div>
 
+
+
       <div className="my-10 flex justify-end">
-        <Button>Plan Trip</Button>
+        <Button onClick={OnCreateTrip} >Plan Trip</Button>
       </div>
     </div>
   );
 }
 
 export default CreateTrip;
+
