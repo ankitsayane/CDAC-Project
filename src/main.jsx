@@ -1,27 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CreateTrip from "./trip/index.jsx";
+import App from "./App.jsx";
 import Header from "./components/Custom/Header.jsx";
 import Footer from "./components/Custom/Footer.jsx";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/trip",
-    element: <CreateTrip />,
-  },
-]);
+import Login from "./credential/Login.jsx";
+import Register from "./credential/Register.jsx";
+import CreateTrip from "./trip/index.jsx";
+import ProtectedRoute from "./credential/ProtectedRoute";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Header />
-    <RouterProvider router={router} />
-    <Footer />
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Register />} />
+        <Route
+          path="/trip"
+          element={
+            <ProtectedRoute>
+              <CreateTrip />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   </React.StrictMode>
 );

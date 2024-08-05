@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div className="flex flex-col items-center mx-56 gap-9">
+    <div className="flex flex-col items-center mx-56 gap-9 -z-1">
       <h1 className="font-extrabold text-[45px] text-center mt-16">
         <span className="text-[#0039a6]">
           Compassly: Discover your next Adventure.&nbsp;
