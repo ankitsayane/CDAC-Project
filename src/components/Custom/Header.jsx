@@ -14,19 +14,19 @@ function Header() {
   };
 
   return (
-    <div className="sticky top-0">
+    <div>
       <div className="p-3 shadow-sm flex justify-between items-center px-5">
-        <Link to={"/"}>
-          <img src="./main.svg" />
-        </Link>
+      <img src="/compassly.png" alt="" className="w-1/5 bg-cover min-w-56" />
 
         <div>
           {isLoggedIn ? (
             <>
-              <span className="mr-3 font-bold text-[#0039a6]">
+              <span className="mr-6 font-bold text-[#0039a6]">
                 Welcome, {name.charAt(0).toUpperCase() + name.slice(1)}
+                <img src="https://img.freepik.com/premium-vector/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-profile-picture-business-profile-woman-suitable-social-media-profiles-icons-screensavers-as-templatex9_719432-1328.jpg?w=826" alt="" className="size-9 bg-cover absolute right-0 top-4 mr-2"/>
               </span>
-              <Button onClick={handleLogout}>Logout</Button>
+
+              {/* <Button onClick={handleLogout}>Logout</Button> */}
             </>
           ) : (
             <>

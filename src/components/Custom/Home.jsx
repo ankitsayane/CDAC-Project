@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div className="flex flex-col items-center mx-56 gap-9 -z-1">
+    <div className="flex flex-col items-center mx-56 gap-9 ">
       <h1 className="font-extrabold text-[45px] text-center mt-16">
         <span className="text-[#0039a6]">
           Compassly: Discover your next Adventure.&nbsp;
@@ -18,7 +18,7 @@ function Home() {
       <Link to={"/trip"}>
         <Button>Explore Now</Button>
       </Link>
-      <img src="./home.png" />
+      <img src="./home.png"/>
     </div>
   );
 }
