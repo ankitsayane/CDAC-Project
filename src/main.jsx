@@ -9,11 +9,13 @@ import Login from "./credential/Login.jsx";
 import Register from "./credential/Register.jsx";
 import CreateTrip from "./trip/index.jsx";
 import ProtectedRoute from "./credential/ProtectedRoute";
+import { Toaster } from "./components/ui/sonner";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <Header />
+      <Toaster />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />

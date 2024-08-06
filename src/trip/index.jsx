@@ -1,45 +1,60 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { BudgetOptions, TravlersList } from "@/constants/options";
+import { AI_PROMPT, BudgetOptions, TravlersList } from "@/constants/options";
+import { chatSession } from "@/Service/AImodel";
 import React, { useState, useEffect } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { toast } from "sonner";
 
 function CreateTrip() {
   const [place, setPlace] = useState();
-
-  const [travelData, setTravelData] = useState([]);
-  const [otherTraveler, setOtherTraveler] = useState('');
+  const [travelData, setTravelData] = useState({});
+  const [otherTraveler, setOtherTraveler] = useState("");
 
   const handlePlanChange = (name, value) => {
-
-    if (name == 'days' && value > 30) {
-      alert('Maximum days allowed is 30');
-      return;
-    }
     setTravelData({
       ...travelData,
-      [name]: value
-    })
-  }
-
-  useEffect(() => {
-    console.log(travelData);
-  }, [travelData])
-
-  const OnCreateTrip = () => {
-    if (travelData?.days > 30) {
-      return;
-    }
-  }
-
-  const handleOtherPlanChange = (e)=>{
-    setOtherTraveler(e.target.value);
-    setTravelData({
-      ...travelData,
-      travlers: e.target.value
+      [name]: value,
     });
   };
 
+  useEffect(() => {
+    console.log(travelData);
+  }, [travelData]);
+
+  const OnCreateTrip = async () => {
+    console.log("Button clicked");
+
+    if (
+      !travelData.place ||
+      !travelData.days ||
+      !travelData.budget ||
+      !travelData.travlers
+    ) {
+      toast("Please fill all details properly");
+      console.log("Form validation failed");
+      return;
+    }
+    console.log(travelData);
+    const FINAL_PROMPT = AI_PROMPT.replace("{place}", travelData?.place)
+      .replace("{days}", travelData?.days)
+      .replace("{travlers}", travelData?.travlers)
+      .replace("{budget}", travelData?.budget)
+      .replace("{totaldays}", travelData?.days);
+
+    console.log(FINAL_PROMPT);
+
+    const result = await chatSession.sendMessage(FINAL_PROMPT);
+    console.log(result?.response?.text());
+  };
+
+  const handleOtherPlanChange = (e) => {
+    setOtherTraveler(e.target.value);
+    setTravelData({
+      ...travelData,
+      travlers: e.target.value,
+    });
+  };
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
@@ -61,11 +76,10 @@ function CreateTrip() {
                 place,
                 onChange: (x) => {
                   setPlace(x);
-                  handlePlanChange('plan', x)
-                }
+                  handlePlanChange("place", x.label);
+                },
               }}
-            >
-            </GooglePlacesAutocomplete>
+            />
           </h2>
         </div>
 
@@ -73,10 +87,11 @@ function CreateTrip() {
           <h2 className="text-xl font-medium">
             How many days do you plan to spend on your trip?
           </h2>
-          <Input placeholder={"Ex-10"} type="number" className="mt-2 w-full"
-            onChange={
-              (e) => handlePlanChange('days', e.target.value)
-            }
+          <Input
+            placeholder={"Ex-10"}
+            type="number"
+            className="mt-2 w-full"
+            onChange={(e) => handlePlanChange("days", e.target.value)}
           />
         </div>
       </div>
@@ -89,12 +104,10 @@ function CreateTrip() {
           {BudgetOptions.map((item, index) => (
             <div
               key={index}
-              onClick={
-                () => handlePlanChange('budget', item.title)
-              }
-              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg
-                ${travelData?.budget == item.title && 'shadow-lg border-black'}
-              `}
+              onClick={() => handlePlanChange("budget", item.title)}
+              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg ${
+                travelData?.budget === item.title && "shadow-lg border-black"
+              }`}
             >
               <h2 className="text-4xl text-center">{item.icon}</h2>
               <h2 className="font-bold text-lg text-center mt-2">
@@ -116,10 +129,10 @@ function CreateTrip() {
           {TravlersList.map((item, index) => (
             <div
               key={index}
-              onClick={() => handlePlanChange('travlers', item.people)}
-              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg"
-              ${travelData?.travlers == item.people && 'shadow-lg border-black'}
-              `}
+              onClick={() => handlePlanChange("travlers", item.people)}
+              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg ${
+                travelData?.travlers === item.people && "shadow-lg border-black"
+              }`}
             >
               <h2 className="text-4xl text-center">{item.icon}</h2>
               <h2 className="font-bold text-lg text-center mt-2">
@@ -130,30 +143,23 @@ function CreateTrip() {
               </h2>
             </div>
           ))}
-
         </div>
-        {travelData?.travlers === 'Any Number' && (
+        {travelData?.travlers === "Any Number" && (
           <div className="mt-5">
             <Input
-              placeholder="Please specify the number of travel comapanions"
+              placeholder="Please specify the number of travel companions"
               value={otherTraveler}
-              onChange={
-                handleOtherPlanChange              
-              }
+              onChange={handleOtherPlanChange}
             />
-
           </div>
         )}
       </div>
 
-
-
       <div className="my-10 flex justify-end">
-        <Button onClick={OnCreateTrip} >Plan Trip</Button>
+        <Button onClick={OnCreateTrip}>Plan Trip</Button>
       </div>
     </div>
   );
 }
 
 export default CreateTrip;
-

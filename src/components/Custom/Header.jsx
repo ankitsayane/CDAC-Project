@@ -14,7 +14,7 @@ function Header() {
   };
 
   return (
-    <div class="sticky top-0">
+    <div className="sticky top-0">
       <div className="p-3 shadow-sm flex justify-between items-center px-5">
         <Link to={"/"}>
           <img src="./main.svg" />

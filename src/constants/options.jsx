@@ -29,13 +29,12 @@ export const TravlersList = [
   },
 
   {
-    id:5,
+    id: 5,
     title: "Custom",
     desc: "A custom group of traveles",
     icon: "🖉",
     people: "Any Number",
-    
-  }
+  },
 ];
 
 export const BudgetOptions = [
@@ -59,4 +58,5 @@ export const BudgetOptions = [
   },
 ];
 
-export const AI_PROMPT = "Generate Travel Plan for Location : {location}";
+export const AI_PROMPT =
+  "Generate Travel Plan for Location : {place}, for {days} Days for {travlers} travlers, with a {budget} budget,Give me a Hotels options list with Hotel Name, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket Pricing, rating, Time travel each of the location for {totaldays} days with each day plan with best time to visit in JSON format. ";
