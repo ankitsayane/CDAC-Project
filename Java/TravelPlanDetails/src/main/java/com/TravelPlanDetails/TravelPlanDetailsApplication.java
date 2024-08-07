@@ -1,15 +1,13 @@
-package com.SignUp.Mongo.SignUpMongo;
+package com.TravelPlanDetails;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SignUpMongoApplication {
+public class TravelPlanDetailsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SignUpMongoApplication.class, args);
-		
-
+		SpringApplication.run(TravelPlanDetailsApplication.class, args);
 	}
 
 }

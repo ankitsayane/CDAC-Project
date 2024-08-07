@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AI_PROMPT, BudgetOptions, TravlersList } from "@/constants/options";
 import { chatSession } from "@/Service/AImodel";
+import { addTravelPlan,getTravelPlans } from "@/Service/TravelPlanServices";
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { toast } from "sonner";
@@ -46,7 +48,25 @@ function CreateTrip() {
 
     const result = await chatSession.sendMessage(FINAL_PROMPT);
     console.log(result?.response?.text());
-  };
+    const responseText = result?.response?.text();
+    const parsedResponse = JSON.parse(responseText);
+    
+    
+    const insertedTravelPlan = await addTravelPlan(parsedResponse);
+    if(insertedTravelPlan){
+     // Navigate('/travel-plans');
+      console.log(insertedTravelPlan);
+    }
+
+    const showData = await getTravelPlans();
+    if(showData){
+      console.log(showData);
+    }
+
+
+};
+
+ 
 
   const handleOtherPlanChange = (e) => {
     setOtherTraveler(e.target.value);

@@ -8,11 +8,11 @@
 		<version>3.3.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.SignUp.Mongo</groupId>
-	<artifactId>SignUp</artifactId>
+	<groupId>com</groupId>
+	<artifactId>TravelPlanDetails</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SignUpMongo</name>
-	<description>project for Spring Boot SignUp</description>
+	<name>TravelPlanDetails</name>
+	<description>Project for Travel Plans,Hotel,Plans</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -44,10 +44,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-
-		
-		
 	</dependencies>
 
 	<build>
