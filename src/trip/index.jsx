@@ -2,13 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AI_PROMPT, BudgetOptions, TravlersList } from "@/constants/options";
 import { chatSession } from "@/Service/AImodel";
-import { addTravelPlan,getTravelPlans } from "@/Service/TravelPlanServices";
+import { addTravelPlan, getTravelPlans } from "@/Service/TravelPlanServices";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 function CreateTrip() {
+  const navigate = useNavigate();
   const [place, setPlace] = useState();
   const [travelData, setTravelData] = useState({});
   const [otherTraveler, setOtherTraveler] = useState("");
@@ -50,23 +52,13 @@ function CreateTrip() {
     console.log(result?.response?.text());
     const responseText = result?.response?.text();
     const parsedResponse = JSON.parse(responseText);
-    
-    
+
     const insertedTravelPlan = await addTravelPlan(parsedResponse);
-    if(insertedTravelPlan){
-     // Navigate('/travel-plans');
+    if (insertedTravelPlan) {
+      navigate("/trip-plans");
       console.log(insertedTravelPlan);
     }
-
-    const showData = await getTravelPlans();
-    if(showData){
-      console.log(showData);
-    }
-
-
-};
-
- 
+  };
 
   const handleOtherPlanChange = (e) => {
     setOtherTraveler(e.target.value);
@@ -78,7 +70,7 @@ function CreateTrip() {
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
-      <h2 className="font-bold text-3xl text-center">
+      <h2 className="font-bold text-4xl text-center ">
         Please share your travel preferences with us🧳🗺️
       </h2>
       <p className="mt-3 text-gray-500 text-xl text-center">

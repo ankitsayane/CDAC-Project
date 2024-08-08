@@ -23,7 +23,7 @@ public class SignUpService {
 		return signuprepo.findAll();
 	}
 
-    public List<SignUp> findByUsernameAndPassword(String username, String password) {
+    public SignUp findByUsernameAndPassword(String username, String password) {
         return signuprepo.findByUsernameAndPassword(username, password);
     }
 	

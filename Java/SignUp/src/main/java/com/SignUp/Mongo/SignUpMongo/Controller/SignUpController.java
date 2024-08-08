@@ -1,7 +1,5 @@
 package com.SignUp.Mongo.SignUpMongo.Controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,10 +42,10 @@ public class SignUpController {
 	@PostMapping("/login")
 	public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
 		try {
-			List<SignUp> user = signupservice.findByUsernameAndPassword(loginRequest.getUsername(),
+			SignUp user = signupservice.findByUsernameAndPassword(loginRequest.getUsername(),
 					loginRequest.getPassword());
-			if (!user.isEmpty()) {
-				return ResponseEntity.ok(user.get(0));
+			if (user != null) {
+				return ResponseEntity.ok(user);
 			} else {
 				return ResponseEntity.status(401).body("Invalid credentials");
 			}

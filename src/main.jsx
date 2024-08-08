@@ -10,6 +10,7 @@ import Register from "./credential/Register.jsx";
 import CreateTrip from "./trip/index.jsx";
 import ProtectedRoute from "./credential/ProtectedRoute";
 import { Toaster } from "./components/ui/sonner";
+import TripDetails from "./trip-result/tripdetails";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -25,6 +26,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           element={
             <ProtectedRoute>
               <CreateTrip />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/trip-plans"
+          element={
+            <ProtectedRoute>
+              <TripDetails />
             </ProtectedRoute>
           }
         />

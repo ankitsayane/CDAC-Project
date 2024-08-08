@@ -26,7 +26,6 @@
 //   //   }
 //   // };
 
-
 //   const handleSubmit = async(e) => {
 //     e.preventDefault();
 //     try{
@@ -48,7 +47,7 @@
 //     } catch (error) {
 //       setError("Invalid credentials");
 //     }
-      
+
 //   }
 
 //   return (
@@ -82,8 +81,6 @@
 
 // export default Login;
 
-
-
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -98,15 +95,25 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/registration/login", {
-        username:username,
-        password:password
-      });
-      
+      const response = await axios.post(
+        "http://localhost:8080/registration/login",
+        {
+          username: username,
+          password: password,
+        }
+      );
+
       const user = response.data;
+      const u = {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        username: user.username,
+      };
+      console.log(user);
       if (user) {
         setError("");
-        sessionStorage.setItem("name", user.name);
+        sessionStorage.setItem("user", JSON.stringify(u));
         sessionStorage.setItem("isLoggedIn", "true");
         navigate("/");
         window.location.reload();
@@ -114,7 +121,7 @@ const Login = () => {
         setError("Invalid credentials");
       }
     } catch (error) {
-      setError("Invalid credentials");
+      setError("Invalid credentials, or Something went wrong");
     }
   };
 
@@ -148,5 +155,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
