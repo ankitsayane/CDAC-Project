@@ -53,9 +53,16 @@ function CreateTrip() {
     const responseText = result?.response?.text();
     const parsedResponse = JSON.parse(responseText);
 
-    const insertedTravelPlan = await addTravelPlan(parsedResponse);
+    const user = JSON.parse(sessionStorage.getItem("user"));
+
+    const finalResponse = {
+      email: user.email,
+      travelplan: parsedResponse,
+    };
+
+    const insertedTravelPlan = await addTravelPlan(finalResponse);
     if (insertedTravelPlan) {
-      navigate("/trip-plans");
+      // navigate("/trip-plans");
       console.log(insertedTravelPlan);
     }
   };
