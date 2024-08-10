@@ -11,7 +11,7 @@ public class TravelPlan {
 	private String duration;
 	private String travelers;
 	private String budget;
-	//private String currency;
+	
 	
 	private List<Hotel> hotels;
 	private List<Itinerary> itinerary;
@@ -21,14 +21,13 @@ public class TravelPlan {
 		
 	}
 	
-	public TravelPlan(String location, String duration, String travelers, String budget, /*String currency,*/
+	public TravelPlan(String location, String duration, String travelers, String budget, 
 			List<Hotel> hotels, List<Itinerary> itinerary) {
 		super();
 		this.location = location;
 		this.duration = duration;
 		this.travelers = travelers;
 		this.budget = budget;
-		//this.currency = currency;
 		this.hotels = hotels;
 		this.itinerary = itinerary;
 	}
@@ -64,15 +63,6 @@ public class TravelPlan {
 	public void setBudget(String budget) {
 		this.budget = budget;
 	}
-
-//	public String getCurrency() {
-//		return currency;
-//	}
-//
-//	public void setCurrency(String currency) {
-//		this.currency = currency;
-//	}
-
 	public List<Hotel> getHotels() {
 		return hotels;
 	}

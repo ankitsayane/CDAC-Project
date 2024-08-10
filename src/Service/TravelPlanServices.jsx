@@ -26,3 +26,14 @@ export const getTripDetailById = async (tripid) => {
     console.error("There was an error fetching the travel plans!", error);
   }
 };
+
+export const getTravelPlansByEmailId  = async (email) => {
+  try{
+    const emailresponse = await axios.get("http://localhost:8080/email/" + email);
+    return emailresponse.data;
+  }
+
+  catch(error){
+    console.log("There was an error fetching the travel Plans!" , error);
+  }
+};

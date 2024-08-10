@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input";
 import { AI_PROMPT, BudgetOptions, TravlersList } from "@/constants/options";
 import { chatSession } from "@/Service/AImodel";
 import { addTravelPlan, getTravelPlans } from "@/Service/TravelPlanServices";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { useNavigate } from "react-router-dom";

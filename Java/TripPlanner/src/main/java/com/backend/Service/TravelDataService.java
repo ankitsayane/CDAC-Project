@@ -21,7 +21,6 @@ public class TravelDataService {
 	}
 
 	public Optional<TravelData> getDetails(String id) {
-		// TODO Auto-generated method stub
 		return travelRepo.findById(id);
 	}
 

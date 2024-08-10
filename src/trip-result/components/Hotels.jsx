@@ -26,13 +26,6 @@ function Hotels({ trip }) {
                 <h2 className="text-sm">💰 {hotel?.price}</h2>
                 <h2 className="text-sm">⭐ {hotel?.rating}</h2>
               </div>
-              {/* <li key={index}>
-              <strong>{hotel.hotelName}</strong>
-              <p>Address: {hotel.hotelAddress}</p>
-              <p>Price: {hotel.price}</p>
-
-              <p>Coordinates: {hotel.geoCoordinates}</p>
-            </li> */}
             </div>
           </Link>
         ))}

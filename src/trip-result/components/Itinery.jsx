@@ -24,28 +24,6 @@ function Itinery({ trip }) {
             </div>
           </div>
         ))}
-        {/* <ul>
-          {trip.travelplan.itinerary.map((item, index) => (
-            <li key={index}>
-              <h5>{item.day}</h5>
-              <ul>
-                {item.plan.map((place, pIndex) => (
-                  <li key={pIndex}>
-                    <strong>{place.placeName}</strong>
-                    <p>Details: {place.placeDetails}</p>
-                    <p>Ticket Pricing: {place.ticketPricing}</p>
-                    <img
-                      src={place.placeImageUrl}
-                      alt={place.placeName}
-                      width="100"
-                    />
-                    <p>Coordinates: {place.geoCoordinates}</p>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul> */}
       </div>
     </div>
   );
