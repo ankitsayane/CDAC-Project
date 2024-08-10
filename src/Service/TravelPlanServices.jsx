@@ -17,3 +17,12 @@ export const getTravelPlans = async () => {
     console.error("There was an error fetching the travel plans!", error);
   }
 };
+
+export const getTripDetailById = async (tripid) => {
+  try {
+    const response = await axios.get("http://localhost:8080/get/" + tripid);
+    return response.data;
+  } catch (error) {
+    console.error("There was an error fetching the travel plans!", error);
+  }
+};

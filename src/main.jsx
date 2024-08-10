@@ -10,7 +10,7 @@ import Register from "./credential/Register.jsx";
 import CreateTrip from "./trip/index.jsx";
 import ProtectedRoute from "./credential/ProtectedRoute";
 import { Toaster } from "./components/ui/sonner";
-import TripDetails from "./trip-result/tripdetails";
+import TripDetails from "./trip-result/[tripid]/tripdetails";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -30,7 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           }
         />
         <Route
-          path="/trip-plans"
+          path="/trip-plans/:tripid"
           element={
             <ProtectedRoute>
               <TripDetails />

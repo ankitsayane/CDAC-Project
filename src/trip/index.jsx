@@ -60,10 +60,12 @@ function CreateTrip() {
       travelplan: parsedResponse,
     };
 
+    console.log(finalResponse);
+
     const insertedTravelPlan = await addTravelPlan(finalResponse);
     if (insertedTravelPlan) {
-      // navigate("/trip-plans");
       console.log(insertedTravelPlan);
+      navigate("/trip-plans/" + insertedTravelPlan);
     }
   };
 
