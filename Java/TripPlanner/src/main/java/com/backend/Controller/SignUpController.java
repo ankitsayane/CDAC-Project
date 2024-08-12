@@ -1,7 +1,10 @@
 package com.backend.Controller;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,16 +16,22 @@ import com.backend.Dto.LoginRequest;
 import com.backend.Model.SignUp;
 import com.backend.Service.SignUpService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
+@Validated
 @RequestMapping("/registration")
+
 public class SignUpController {
 
 	@Autowired
 	private SignUpService signupservice;
+	
+
 
 	@PostMapping("/")
-	public ResponseEntity<?> registerNewUser(@RequestBody SignUp signup) {
+	public ResponseEntity<?> registerNewUser( @Valid @RequestBody SignUp signup) {
 		try {
 			signupservice.saveUser(signup);
 			return ResponseEntity.ok().build();
@@ -43,6 +52,10 @@ public class SignUpController {
 			SignUp user = signupservice.findByUsernameAndPassword(loginRequest.getUsername(),
 					loginRequest.getPassword());
 			if (user != null) {
+				
+
+				
+
 				return ResponseEntity.ok(user);
 			} else {
 				return ResponseEntity.status(401).body("Invalid credentials");

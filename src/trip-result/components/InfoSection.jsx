@@ -11,7 +11,7 @@ function InfoSection({ trip }) {
   return (
     <div>
       <img
-        src="/tripplan.jpeg"
+        src="/plan.jpeg"
         className="h-[320px] w-full object-cover rounded-xl"
       />
       <div className="flex justify-between items-center">

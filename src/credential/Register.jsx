@@ -13,6 +13,8 @@ const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+ 
+
   useEffect(() => {
     (async () => await Load())();
   }, []);
@@ -35,9 +37,13 @@ const Register = () => {
       username === "" ||
       password === ""
     ) {
-      setError("All fields are required");
+
+    const validationError = validateForm();
+    if (validationError) {
+      toast.warning("All fields are required");
       return;
     }
+
 
     try {
       await axios.post("http://localhost:8080/registration/", {
@@ -47,7 +53,8 @@ const Register = () => {
         username: username,
         password: password,
       });
-      toast("User Registration Successful");
+      //toast("User Registration Successful");
+      toast.success("User Registration Successful");
       setName("");
       setEmail("");
       setPhone("");
@@ -55,9 +62,12 @@ const Register = () => {
       setPassword("");
       navigate("/login");
     } catch (error) {
-      toast("User Registration Failed");
+      toast.error("User Registration Failed");
     }
   }
+
+
+
 
   return (
     <div className="max-w-md mx-auto shadow-xl p-8 my-2 rounded-lg">
@@ -70,6 +80,7 @@ const Register = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full p-2 border rounded"
+
           />
         </div>
         <div>
@@ -82,7 +93,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Mobile No</label>
+          <label className="block mb-1">Mobile No </label>
           <input
             type="number"
             value={phone}
@@ -91,7 +102,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Username</label>
+          <label className="block mb-1">Username </label>
           <input
             type="text"
             value={username}
@@ -100,7 +111,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Password</label>
+          <label className="block mb-1">Password </label>
           <input
             type="password"
             value={password}
@@ -114,5 +125,6 @@ const Register = () => {
     </div>
   );
 };
+
 
 export default Register;

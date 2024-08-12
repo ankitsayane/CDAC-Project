@@ -19,7 +19,6 @@ const Login = () => {
           password: password,
         }
       );
-
       const user = response.data;
       const u = {
         name: user.name,
@@ -29,9 +28,12 @@ const Login = () => {
       };
       console.log(user);
       if (user) {
-        setError("");
         sessionStorage.setItem("user", JSON.stringify(u));
         sessionStorage.setItem("isLoggedIn", "true");
+
+        //sessionStorage.setItem("token",token);
+        
+        setError("");
         navigate("/");
         window.location.reload();
       } else {
@@ -39,6 +41,7 @@ const Login = () => {
       }
     } catch (error) {
       setError("Invalid credentials, or Something went wrong");
+     
     }
   };
 
@@ -47,7 +50,7 @@ const Login = () => {
       <h2 className="text-2xl font-bold mb-4 text-[#0039a6]">Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block mb-1">Username</label>
+          <label className="block mb-1">Username </label>
           <input
             type="text"
             value={username}
@@ -56,7 +59,7 @@ const Login = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Password</label>
+          <label className="block mb-1">Password </label>
           <input
             type="password"
             value={password}

@@ -4,17 +4,36 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.mongodb.lang.NonNull;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 @Document(collection = "SignUpDetails")
 public class SignUp {
+	
+	@NotBlank(message = "Name cannnot be blank")
+    @Size(min = 3, message = "Name should have at least 2 characters")
 	private String name;
 	
 	@Id
+	@NotBlank(message = "Email is Required")
+	@Email(message = "Email should be valid")
 	private String email;
     
 	@Indexed(unique = true)
-    private String username;
+    @NotBlank(message = "User name is required")
+    @Size(min = 3, message = "Username should have at least 3 characters")
+	private String username;
 	
+    @NotBlank(message = "Phone cannot be null")
+    @Pattern(regexp = "^[0-9]{10}$" , message = "Phone number should be 10 digits")
 	private String phone;
+	
+	@NotBlank(message = "Password is required")
+	@Size(min = 6 , message = "Password should be at least 6 character long")
 	private String password;
 	
 	
