@@ -28,15 +28,27 @@ const Register = () => {
     }
   }
 
+
+  const validateForm  = () => {
+    if (!name || !email || !phone || !username || !password) {
+      toast.warning("All field are required");
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      toast.warning("Invalid email format");
+    }
+    if (!/^\d{10}$/.test(phone)) {
+      toast.warning("Phone number must be 10 digits");
+    }
+    if (password.length < 6) {
+      toast.warning("Password must be at least 6 character long");
+    }
+
+  };
+
+
   async function save(event) {
     event.preventDefault();
-    if (
-      name === "" ||
-      email === "" ||
-      phone === "" ||
-      username === "" ||
-      password === ""
-    ) {
+    
 
     const validationError = validateForm();
     if (validationError) {
@@ -53,7 +65,6 @@ const Register = () => {
         username: username,
         password: password,
       });
-      //toast("User Registration Successful");
       toast.success("User Registration Successful");
       setName("");
       setEmail("");
@@ -74,7 +85,7 @@ const Register = () => {
       <h2 className="text-2xl font-bold mb-4 text-[#0039a6]">Register</h2>
       <form onSubmit={save} className="space-y-4" method="post">
         <div>
-          <label className="block mb-1">Name</label>
+          <label className="block mb-1">Name <span className="text-red-700 , text-lg" >*</span></label>
           <input
             type="text"
             value={name}
@@ -84,16 +95,16 @@ const Register = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Email</label>
+          <label className="block mb-1">Email <span className="text-red-700 , text-lg" >*</span></label>
           <input
-            type="email"
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-2 border rounded"
           />
         </div>
         <div>
-          <label className="block mb-1">Mobile No </label>
+          <label className="block mb-1">Mobile No <span className="text-red-700 , text-lg" >*</span></label>
           <input
             type="number"
             value={phone}
@@ -102,7 +113,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Username </label>
+          <label className="block mb-1">Username <span className="text-red-700 , text-lg" >*</span></label>
           <input
             type="text"
             value={username}
@@ -111,7 +122,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Password </label>
+          <label className="block mb-1">Password <span className="text-red-700 , text-lg" >*</span></label>
           <input
             type="password"
             value={password}

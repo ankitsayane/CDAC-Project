@@ -9,8 +9,28 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const validateForm = () => {
+    if (!username || !password) {
+      return "All fields are required";
+    }
+    if (password.length < 6) {
+      return "Password must be at least 6 characters long";
+    }
+    return null;
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+
+
     try {
       const response = await axios.post(
         "http://localhost:8080/registration/login",
@@ -32,7 +52,7 @@ const Login = () => {
         sessionStorage.setItem("isLoggedIn", "true");
 
         //sessionStorage.setItem("token",token);
-        
+
         setError("");
         navigate("/");
         window.location.reload();
@@ -41,7 +61,7 @@ const Login = () => {
       }
     } catch (error) {
       setError("Invalid credentials, or Something went wrong");
-     
+
     }
   };
 
@@ -50,7 +70,7 @@ const Login = () => {
       <h2 className="text-2xl font-bold mb-4 text-[#0039a6]">Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block mb-1">Username </label>
+          <label className="block mb-1">Username <span className="text-red-700 , text-lg" >*</span></label>
           <input
             type="text"
             value={username}
@@ -59,7 +79,7 @@ const Login = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Password </label>
+          <label className="block mb-1">Password <span className="text-red-700 , text-lg" >*</span></label>
           <input
             type="password"
             value={password}
