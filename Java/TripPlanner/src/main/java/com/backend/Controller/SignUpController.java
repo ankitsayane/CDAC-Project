@@ -3,16 +3,21 @@ package com.backend.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.Dto.LoginRequest;
+import com.backend.Exception.EmailAlreadyExistsException;
+import com.backend.Exception.UsernameAlreadyExistsException;
 import com.backend.Model.SignUp;
 import com.backend.Service.SignUpService;
 
@@ -34,12 +39,20 @@ public class SignUpController {
 	public ResponseEntity<?> registerNewUser( @Valid @RequestBody SignUp signup) {
 		try {
 			signupservice.saveUser(signup);
-			return ResponseEntity.ok().build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(500).body("Error saving user");
+			return ResponseEntity.ok("User registered Successfully");
+		} 
+		catch (EmailAlreadyExistsException | UsernameAlreadyExistsException e ) {
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+		catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An Error occured while saving the user");
 		}
 	}
+	
+	
+	
+
 
 	@GetMapping("/get")
 	public ResponseEntity<?> getRegisteredUser() {
@@ -52,17 +65,13 @@ public class SignUpController {
 			SignUp user = signupservice.findByUsernameAndPassword(loginRequest.getUsername(),
 					loginRequest.getPassword());
 			if (user != null) {
-				
-
-				
-
 				return ResponseEntity.ok(user);
 			} else {
-				return ResponseEntity.status(401).body("Invalid credentials");
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.status(500).body("An error Ocuured");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error Ocuured During login");
 		}
 	}
 

@@ -32,17 +32,22 @@ const Register = () => {
   const validateForm  = () => {
     if (!name || !email || !phone || !username || !password) {
       toast.warning("All field are required");
+      return true;
     }
     if (!/\S+@\S+\.\S+/.test(email)) {
       toast.warning("Invalid email format");
+      return true;
     }
     if (!/^\d{10}$/.test(phone)) {
       toast.warning("Phone number must be 10 digits");
+      return true;
     }
     if (password.length < 6) {
       toast.warning("Password must be at least 6 character long");
+      return true;
     }
 
+    return false;
   };
 
 
@@ -73,7 +78,15 @@ const Register = () => {
       setPassword("");
       navigate("/login");
     } catch (error) {
-      toast.error("User Registration Failed");
+      
+      if(error.response.data){
+        setError(error.response.data);
+        toast.error(error.response.data);
+      }
+      //else{
+       // setError("User Registration Failed");
+       // toast.error("User Registration Failed");
+      //}
     }
   }
 
@@ -130,7 +143,7 @@ const Register = () => {
             className="w-full p-2 border rounded"
           />
         </div>
-        {error && <p className="text-red-500">{error}</p>}
+        { <p className="text-red-500"></p>}
         <Button type="submit">Sign Up</Button>
       </form>
     </div>

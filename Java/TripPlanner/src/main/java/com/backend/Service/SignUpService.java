@@ -15,6 +15,9 @@ public class SignUpService  {
 	
 	@Autowired
 	private SignUpRepository signuprepo;
+	
+	
+
 
 	public void saveUser(SignUp signup) {
 		
@@ -23,8 +26,10 @@ public class SignUpService  {
 		}
 		
 		if(signuprepo.findByUsername(signup.getUsername()) != null) {
-			throw new UsernameAlreadyExistsException("Username already exist");
+			throw new UsernameAlreadyExistsException("USERNAME already exist");
 		}
+		
+
 		
 		signuprepo.save(signup);
 	}
@@ -40,6 +45,9 @@ public class SignUpService  {
 
     	
     	return signuprepo.findByUsernameAndPassword(username, password);
+    	
+
+    
     }
 
 
