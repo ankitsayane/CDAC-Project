@@ -14,7 +14,7 @@ function Flyout() {
     <div className="w-80 top-16 right-3 bg-zinc-100 absolute rounded-md overflow-hidden, border-2 , shadow-xl">
       <div className="flex flex-col items-center mb-4 py-2">
         <img
-          src="profile.svg"
+          src="/profile.svg"
           className="w-24 h-24 rounded-full object-cover mb-2"
         />
         <h2 className="text-lg font-bold text-gray-900">{user.username}</h2>

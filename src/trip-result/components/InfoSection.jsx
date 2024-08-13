@@ -1,9 +1,28 @@
 import { Button } from "@/components/ui/button";
-import React from "react";
+import { GetPlacesDetails, PHOTO_URL } from "@/Service/GlobalAPI";
+import React, { useEffect, useState } from "react";
 import { IoIosSend } from "react-icons/io";
 
 function InfoSection({ trip }) {
-  // Check if trip and trip.travelplan are defined
+  const [photoUrl, SetPhotoUrl] = useState();
+
+  useEffect(() => {
+    trip && GetPlacePhoto();
+  }, [trip]);
+
+  const GetPlacePhoto = async () => {
+    const data = {
+      textQuery: trip?.travelplan?.location,
+    };
+    const result = await GetPlacesDetails(data).then((resp) => {
+      const PhotoUrl = PHOTO_URL.replace(
+        "{NAME}",
+        resp.data.places[0].photos[2].name
+      );
+      SetPhotoUrl(PhotoUrl);
+    });
+  };
+
   if (!trip || !trip.travelplan) {
     return <div>Loading or no travel plan data available...</div>;
   }
@@ -11,7 +30,7 @@ function InfoSection({ trip }) {
   return (
     <div>
       <img
-        src="/plan.jpeg"
+        src={photoUrl ? photoUrl : "/plan.jpeg"}
         className="h-[320px] w-full object-cover rounded-xl"
       />
       <div className="flex justify-between items-center">

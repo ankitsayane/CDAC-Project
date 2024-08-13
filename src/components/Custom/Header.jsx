@@ -44,7 +44,7 @@ function Header() {
                   : "user"}
                 <img
                   id="profile"
-                  src="profile.svg"
+                  src="/profile.svg"
                   className="inline-block size-10 bg-cover ml-2 cursor-pointer"
                   onClick={toggleFlyout}
                 />
