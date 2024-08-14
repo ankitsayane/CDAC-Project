@@ -11,7 +11,7 @@ function Flyout() {
     window.location.reload();
   };
   return (
-    <div className="w-80 top-16 right-3 bg-zinc-100 absolute rounded-md overflow-hidden, border-2 , shadow-xl">
+    <div className="w-80 top-16 right-3 bg-zinc-100 absolute rounded-md overflow-hidden, border-2 , shadow-xl z-40">
       <div className="flex flex-col items-center mb-4 py-2">
         <img
           src="/profile.svg"

@@ -2,11 +2,11 @@ import React from "react";
 
 function Footer() {
   return (
-    <div>
-      <p className="mb-1 text-center text-gray-800">
-        © 2024 Compassly. All Right Reserved
-      </p>
-    </div>
+    <footer className="relative w-full h-32 text-gray-800">
+      <div className="absolute bottom-0 left-0 w-full text-center py-4">
+        <p>© 2024 Compassly. All Rights Reserved</p>
+      </div>
+    </footer>
   );
 }
 
