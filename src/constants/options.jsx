@@ -9,7 +9,7 @@ export const TravlersList = [
   {
     id: 2,
     title: "A Couple",
-    desc: "Twď traveles in tandem",
+    desc: "Two traveles in tandem",
     icon: "🥂",
     people: "2 People",
   },

@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,4 +40,16 @@ public class TravelDataController {
 		System.out.println("Request received for email: " + email);
 	    return travelService.getByEmailId(email);
 	}
+	
+	
+	@DeleteMapping("/deletetrip/{id}")
+	public String deleteById(@PathVariable String id) {
+		boolean isDeleted = travelService.deleteTrip(id);
+		if (isDeleted) {
+			return "Trip with ID: " + id + " has been deleted successfully.";
+		} else {
+			return "Trip with ID: " + id + " not found.";
+		}
+	}
+	
 }

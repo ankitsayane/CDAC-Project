@@ -37,3 +37,15 @@ export const getTravelPlansByEmailId  = async (email) => {
     console.log("There was an error fetching the travel Plans!" , error);
   }
 };
+
+export const deleteTravelDetailsById = async (tripid) => {
+  try {
+    const idresponse = await axios.delete("http://localhost:8080/deletetrip/" + tripid);
+    return idresponse.data;
+  }
+  catch(error){
+    console.log("There was an error deleting the travel Plans!" , error);
+  }
+}
+
+

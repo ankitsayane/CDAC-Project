@@ -75,12 +75,26 @@ function CreateTrip() {
   };
 
   const handleOtherPlanChange = (e) => {
-    setOtherTraveler(e.target.value);
+    const value = e.target.value;
+    setOtherTraveler(value);
     setTravelData({
       ...travelData,
-      travlers: e.target.value,
+      //travlers: e.target.value,
+      travlers: "Any Number",
+      otherTraveler:value,
     });
   };
+
+  const handleDaysChange = (e) => {
+    const value = e.target.value;
+    if (value > 0) {
+      handlePlanChange("days", value);
+    } else {
+      toast("Please enter a valid number of days greater than 0.");
+    }
+  };
+
+
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
@@ -117,7 +131,9 @@ function CreateTrip() {
             placeholder={"Ex-10"}
             type="number"
             className="mt-2 w-full"
-            onChange={(e) => handlePlanChange("days", e.target.value)}
+            onChange={handleDaysChange}
+
+            //onChange={(e) => handlePlanChange("days", e.target.value)}
           />
         </div>
       </div>

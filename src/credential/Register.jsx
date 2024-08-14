@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
+import bcrypt from "bcryptjs";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -63,12 +64,17 @@ const Register = () => {
 
 
     try {
+
+      const salt = bcrypt.genSaltSync(10);
+      const hashedpassword = bcrypt.hashSync(password, salt);
+
+
       await axios.post("http://localhost:8080/registration/", {
         name: name,
         email: email,
         phone: phone,
         username: username,
-        password: password,
+        password: hashedpassword,
       });
       toast.success("User Registration Successful");
       setName("");

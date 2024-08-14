@@ -27,4 +27,14 @@ public class TravelDataService {
 	public List<TravelData> getByEmailId(String email) {
         return travelRepo.findByEmail(email);
     }
+	
+	
+	public boolean deleteTrip(String id) {
+		if (travelRepo.existsById(id)) {
+			travelRepo.deleteById(id);
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
