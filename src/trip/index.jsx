@@ -3,10 +3,11 @@ import { Input } from "@/components/ui/input";
 import { AI_PROMPT, BudgetOptions, TravlersList } from "@/constants/options";
 import { chatSession } from "@/Service/AImodel";
 import { addTravelPlan, getTravelPlans } from "@/Service/TravelPlanServices";
+import { ChevronLeft } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { Commet, Mosaic } from "react-loading-indicators";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 function CreateTrip() {
@@ -28,8 +29,6 @@ function CreateTrip() {
   }, [travelData]);
 
   const OnCreateTrip = async () => {
-    console.log("Button clicked");
-
     if (
       !travelData.place ||
       !travelData.days ||
@@ -37,10 +36,8 @@ function CreateTrip() {
       !travelData.travlers
     ) {
       toast("Please fill all details properly");
-      // console.log("Form validation failed");
       return;
     }
-    // console.log(travelData);
     setLoading(true);
     const FINAL_PROMPT = AI_PROMPT.replace("{place}", travelData?.place)
       .replace("{days}", travelData?.days)
@@ -48,10 +45,7 @@ function CreateTrip() {
       .replace("{budget}", travelData?.budget)
       .replace("{totaldays}", travelData?.days);
 
-    // console.log(FINAL_PROMPT);
-
     const result = await chatSession.sendMessage(FINAL_PROMPT);
-    // console.log(result?.response?.text());
     setLoading(false);
     const responseText = result?.response?.text();
     const parsedResponse = JSON.parse(responseText);
@@ -63,12 +57,9 @@ function CreateTrip() {
       travelplan: parsedResponse,
     };
 
-    // console.log(finalResponse);
-
     setLoading(true);
     const insertedTravelPlan = await addTravelPlan(finalResponse);
     if (insertedTravelPlan) {
-      // console.log(insertedTravelPlan);
       setLoading(false);
       navigate("/trip-plans/" + insertedTravelPlan);
     }
@@ -195,7 +186,13 @@ function CreateTrip() {
         )}
       </div>
 
-      <div className="my-10 flex justify-end">
+      <div className="my-10 flex justify-between">
+        <Link to={"/"}>
+          <Button variant="default" size="icon">
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+        </Link>
+
         {loading ? (
           <Commet
             color="#2c24b4"

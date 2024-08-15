@@ -19,7 +19,6 @@
 //     return null;
 //   };
 
-
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 
@@ -28,8 +27,6 @@
 //       setError(validationError);
 //       return;
 //     }
-
-
 
 //     try {
 //       const response = await axios.post(
@@ -96,13 +93,8 @@
 
 // export default Login;
 
-
-
-
-
-
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import { Button } from "@/components/ui/button";
@@ -133,7 +125,9 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.get("http://localhost:8080/registration/get"); // Load users to find the correct one
+      const response = await axios.get(
+        "http://localhost:8080/registration/get"
+      ); // Load users to find the correct one
       const users = response.data;
       const user = users.find((u) => u.username === username);
 
@@ -156,7 +150,9 @@ const Login = () => {
       <h2 className="text-2xl font-bold mb-4 text-[#0039a6]">Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block mb-1">Username <span className="text-red-700">*</span></label>
+          <label className="block mb-1">
+            Username <span className="text-red-700">*</span>
+          </label>
           <input
             type="text"
             value={username}
@@ -165,7 +161,9 @@ const Login = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Password <span className="text-red-700">*</span></label>
+          <label className="block mb-1">
+            Password <span className="text-red-700">*</span>
+          </label>
           <input
             type="password"
             value={password}
@@ -175,10 +173,12 @@ const Login = () => {
         </div>
         {error && <p className="text-red-500">{error}</p>}
         <Button type="submit">Sign In</Button>
+        <div className="my-2 text-blue-950 underline">
+          <Link to={"/registration"}>Don't have an account yet? Sign Up</Link>
+        </div>
       </form>
     </div>
   );
 };
 
 export default Login;
-

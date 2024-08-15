@@ -16,11 +16,9 @@ function TripDetails() {
   }, [tripid]);
 
   const OnGetData = async () => {
-    console.log("button clicked");
     const showData = await getTripDetailById(tripid);
     if (showData) {
       setTrip(showData);
-      console.log(showData);
     }
     console.log("End function");
   };
@@ -35,7 +33,6 @@ function TripDetails() {
       <Itinery trip={trip} />
       {/* Footer */}
     </div>
-
   );
 }
 

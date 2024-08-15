@@ -14,8 +14,6 @@ const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
- 
-
   useEffect(() => {
     (async () => await Load())();
   }, []);
@@ -23,14 +21,12 @@ const Register = () => {
   async function Load() {
     try {
       const result = await axios.get("http://localhost:8080/registration/get");
-      console.log(result.data);
     } catch (error) {
       console.error("Error loading data", error);
     }
   }
 
-
-  const validateForm  = () => {
+  const validateForm = () => {
     if (!name || !email || !phone || !username || !password) {
       toast.warning("All field are required");
       return true;
@@ -51,10 +47,8 @@ const Register = () => {
     return false;
   };
 
-
   async function save(event) {
     event.preventDefault();
-    
 
     const validationError = validateForm();
     if (validationError) {
@@ -62,12 +56,9 @@ const Register = () => {
       return;
     }
 
-
     try {
-
       const salt = bcrypt.genSaltSync(10);
       const hashedpassword = bcrypt.hashSync(password, salt);
-
 
       await axios.post("http://localhost:8080/registration/", {
         name: name,
@@ -84,37 +75,36 @@ const Register = () => {
       setPassword("");
       navigate("/login");
     } catch (error) {
-      
-      if(error.response.data){
+      if (error.response.data) {
         setError(error.response.data);
         toast.error(error.response.data);
       }
       //else{
-       // setError("User Registration Failed");
-       // toast.error("User Registration Failed");
+      // setError("User Registration Failed");
+      // toast.error("User Registration Failed");
       //}
     }
   }
-
-
-
 
   return (
     <div className="max-w-md mx-auto shadow-xl p-8 my-2 rounded-lg">
       <h2 className="text-2xl font-bold mb-4 text-[#0039a6]">Register</h2>
       <form onSubmit={save} className="space-y-4" method="post">
         <div>
-          <label className="block mb-1">Name <span className="text-red-700 , text-lg" >*</span></label>
+          <label className="block mb-1">
+            Name <span className="text-red-700 , text-lg">*</span>
+          </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full p-2 border rounded"
-
           />
         </div>
         <div>
-          <label className="block mb-1">Email <span className="text-red-700 , text-lg" >*</span></label>
+          <label className="block mb-1">
+            Email <span className="text-red-700 , text-lg">*</span>
+          </label>
           <input
             type="text"
             value={email}
@@ -123,7 +113,9 @@ const Register = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Mobile No <span className="text-red-700 , text-lg" >*</span></label>
+          <label className="block mb-1">
+            Mobile No <span className="text-red-700 , text-lg">*</span>
+          </label>
           <input
             type="number"
             value={phone}
@@ -132,7 +124,9 @@ const Register = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Username <span className="text-red-700 , text-lg" >*</span></label>
+          <label className="block mb-1">
+            Username <span className="text-red-700 , text-lg">*</span>
+          </label>
           <input
             type="text"
             value={username}
@@ -141,7 +135,9 @@ const Register = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Password <span className="text-red-700 , text-lg" >*</span></label>
+          <label className="block mb-1">
+            Password <span className="text-red-700 , text-lg">*</span>
+          </label>
           <input
             type="password"
             value={password}
@@ -149,12 +145,11 @@ const Register = () => {
             className="w-full p-2 border rounded"
           />
         </div>
-        { <p className="text-red-500"></p>}
+        {<p className="text-red-500"></p>}
         <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
 };
-
 
 export default Register;

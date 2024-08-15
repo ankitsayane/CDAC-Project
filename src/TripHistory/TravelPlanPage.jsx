@@ -21,7 +21,6 @@ function TravelPlanPage() {
   };
 
   const handleDelete = (id) => {
-    // Remove the deleted trip from the travelplans state
     setTravelPlans((prevPlans) => prevPlans.filter((plan) => plan.id !== id));
   };
 
@@ -37,7 +36,7 @@ function TravelPlanPage() {
             <UserTripComponent
               key={index}
               trip={plan}
-              onDelete={handleDelete} // Pass the delete handler to the child
+              onDelete={handleDelete}
             />
           ))
         ) : (
