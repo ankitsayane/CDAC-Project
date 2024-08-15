@@ -81,7 +81,7 @@ function CreateTrip() {
       ...travelData,
       //travlers: e.target.value,
       travlers: "Any Number",
-      otherTraveler:value,
+      otherTraveler: value,
     });
   };
 
@@ -93,8 +93,6 @@ function CreateTrip() {
       toast("Please enter a valid number of days greater than 0.");
     }
   };
-
-
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">

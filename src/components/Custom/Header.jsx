@@ -6,6 +6,7 @@ import Flyout from "./Flyout";
 function Header() {
   const isLoggedIn = !!sessionStorage.getItem("isLoggedIn");
   const user = JSON.parse(sessionStorage.getItem("user"));
+  const firstWord = user?.name.split(" ")[0];
 
   const [isFlyoutOpen, setIsFlyoutOpen] = useState(false);
 
@@ -27,20 +28,16 @@ function Header() {
   return (
     <div>
       <div className="p-3 shadow-sm flex justify-between items-center px-5">
-        <Link to={"/"}>
-          <img
-            src="/compassly.png"
-            alt=""
-            className="w-1/5 bg-cover min-w-56"
-          />
+        <Link to={"/trip"}>
+          <img src="/LOGO.png" alt="" className="w-1/5 bg-cover min-w-56" />
         </Link>
         <div>
           {isLoggedIn ? (
             <>
               <span className="mr-4 font-bold text- text-[#0039a6]">
                 Welcome,{" "}
-                {user.name
-                  ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
+                {firstWord
+                  ? firstWord.charAt(0).toUpperCase() + firstWord.slice(1)
                   : "user"}
                 <img
                   id="profile"
