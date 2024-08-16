@@ -1,13 +1,13 @@
 package com.backend.Dto;
 
-class LoginResponse{
-    private boolean success;
-    private String name;
+class LoginResponse {
+	private boolean success;
+	private String name;
 
-    public LoginResponse(boolean success, String name) {
-        this.success = success;
-        this.name = name;
-    }
+	public LoginResponse(boolean success, String name) {
+		this.success = success;
+		this.name = name;
+	}
 
 	public boolean isSuccess() {
 		return success;
@@ -24,6 +24,5 @@ class LoginResponse{
 	public void setName(String name) {
 		this.name = name;
 	}
-    
-    
+
 }

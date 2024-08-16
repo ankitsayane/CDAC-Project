@@ -11,46 +11,33 @@ import com.backend.Model.SignUp;
 import com.backend.Repository.SignUpRepository;
 
 @Service
-public class SignUpService  {
-	
+public class SignUpService {
+
 	@Autowired
 	private SignUpRepository signuprepo;
-	
-	
-
 
 	public void saveUser(SignUp signup) {
-		
-		if(signuprepo.findByEmail(signup.getEmail()) != null) {
-			throw new EmailAlreadyExistsException("Email already exists");
-		}
-		
-		if(signuprepo.findByUsername(signup.getUsername()) != null) {
-			throw new UsernameAlreadyExistsException("USERNAME already exist");
-		}
-		
 
-		
+		if (signuprepo.findByEmail(signup.getEmail()) != null) {
+			throw new EmailAlreadyExistsException("Email Address already exists");
+		}
+
+		if (signuprepo.findByUsername(signup.getUsername()) != null) {
+			throw new UsernameAlreadyExistsException("UserName  Already Taken");
+		}
+
 		signuprepo.save(signup);
 	}
 
 	public List<SignUp> getUser() {
-		
+
 		return signuprepo.findAll();
 	}
 
-    public SignUp findByUsernameAndPassword(String username, String password) {
-        
-        System.out.println("Attempting login with username: " + username + " and password: " + password);
+	public SignUp findByUsernameAndPassword(String username, String password) {
 
-    	
-    	return signuprepo.findByUsernameAndPassword(username, password);
-    	
+		return signuprepo.findByUsernameAndPassword(username, password);
 
-    
-    }
-
-
-
+	}
 
 }

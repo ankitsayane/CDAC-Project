@@ -28,7 +28,7 @@ function Header() {
   return (
     <div>
       <div className="p-3 shadow-sm flex justify-between items-center px-5">
-        <Link to={"/trip"}>
+        <Link to={"/"}>
           <img src="/LOGO.png" alt="" className="w-1/5 bg-cover min-w-56" />
         </Link>
         <div>

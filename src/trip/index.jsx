@@ -25,7 +25,6 @@ function CreateTrip() {
   };
 
   useEffect(() => {
-    console.log(travelData);
   }, [travelData]);
 
   const OnCreateTrip = async () => {
@@ -70,7 +69,6 @@ function CreateTrip() {
     setOtherTraveler(value);
     setTravelData({
       ...travelData,
-      //travlers: e.target.value,
       travlers: "Any Number",
       otherTraveler: value,
     });
@@ -122,7 +120,6 @@ function CreateTrip() {
             className="mt-2 w-full"
             onChange={handleDaysChange}
 
-            //onChange={(e) => handlePlanChange("days", e.target.value)}
           />
         </div>
       </div>
@@ -136,9 +133,8 @@ function CreateTrip() {
             <div
               key={index}
               onClick={() => handlePlanChange("budget", item.title)}
-              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg ${
-                travelData?.budget === item.title && "shadow-lg border-black"
-              }`}
+              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg ${travelData?.budget === item.title && "shadow-lg border-black"
+                }`}
             >
               <h2 className="text-4xl text-center">{item.icon}</h2>
               <h2 className="font-bold text-lg text-center mt-2">
@@ -161,9 +157,8 @@ function CreateTrip() {
             <div
               key={index}
               onClick={() => handlePlanChange("travlers", item.people)}
-              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg ${
-                travelData?.travlers === item.people && "shadow-lg border-black"
-              }`}
+              className={`p-4 border rounded-lg cursor-pointer hover:shadow-lg ${travelData?.travlers === item.people && "shadow-lg border-black"
+                }`}
             >
               <h2 className="text-4xl text-center">{item.icon}</h2>
               <h2 className="font-bold text-lg text-center mt-2">

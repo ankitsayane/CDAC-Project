@@ -2,9 +2,9 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const isLogin = sessionStorage.getItem("isLoggedIn");
+  const user = sessionStorage.getItem("isLoggedIn");
 
-  if (isLogin === "true") {
+  if (user === "true") {
     return children;
   } else {
     return <Navigate to="/login" />;

@@ -20,18 +20,16 @@ function TripDetails() {
     if (showData) {
       setTrip(showData);
     }
-    console.log("End function");
   };
 
   return (
     <div className="p-10 md:px-20 lg:px-44 xl:px-56">
-      {/* Information Section */}
+      
       <InfoSection trip={trip} />
-      {/* Recommended Hotels */}
+
       <Hotels trip={trip} />
-      {/* Daily Plan */}
+
       <Itinery trip={trip} />
-      {/* Footer */}
     </div>
   );
 }

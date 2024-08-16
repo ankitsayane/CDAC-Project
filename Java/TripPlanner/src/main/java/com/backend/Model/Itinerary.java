@@ -5,7 +5,7 @@ import java.util.List;
 public class Itinerary {
 	private String day;
 	private List<Plan> plan;
-	
+
 	public Itinerary(String day, List<Plan> plan) {
 		super();
 		this.day = day;
@@ -27,8 +27,5 @@ public class Itinerary {
 	public void setPlan(List<Plan> plan) {
 		this.plan = plan;
 	}
-	
-	
-	
-	
+
 }

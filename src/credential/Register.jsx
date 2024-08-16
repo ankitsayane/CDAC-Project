@@ -27,39 +27,47 @@ const Register = () => {
   }
 
   const validateForm = () => {
+    const errors = [];
+  
     if (!name || !email || !phone || !username || !password) {
-      toast.warning("All field are required");
-      return true;
+      errors.push("All fields are required.");
     }
+
+    if (!/^[A-Za-z\s]+$/.test(name)) {
+      errors.push("Name should contain only alphabetic characters.");
+    }
+
     if (!/\S+@\S+\.\S+/.test(email)) {
-      toast.warning("Invalid email format");
-      return true;
+      errors.push("Invalid email format.");
     }
     if (!/^\d{10}$/.test(phone)) {
-      toast.warning("Phone number must be 10 digits");
-      return true;
-    }
-    if (password.length < 6) {
-      toast.warning("Password must be at least 6 character long");
-      return true;
+      errors.push("Phone number must be 10 digits.");
     }
 
-    return false;
+    if (!/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password)) {
+      errors.push("Password must be at least 6 characters long and contain both letters and numbers.");
+    }
+  
+    if (errors.length > 0) {
+      errors.forEach((error) => toast.warning(error));
+      return true; 
+    }
+  
+    return false; 
   };
-
+  
   async function save(event) {
     event.preventDefault();
-
+  
     const validationError = validateForm();
     if (validationError) {
-      toast.warning("All fields are required");
       return;
     }
-
+  
     try {
       const salt = bcrypt.genSaltSync(10);
       const hashedpassword = bcrypt.hashSync(password, salt);
-
+  
       await axios.post("http://localhost:8080/registration/", {
         name: name,
         email: email,
@@ -79,13 +87,9 @@ const Register = () => {
         setError(error.response.data);
         toast.error(error.response.data);
       }
-      //else{
-      // setError("User Registration Failed");
-      // toast.error("User Registration Failed");
-      //}
     }
   }
-
+  
   return (
     <div className="max-w-md mx-auto shadow-xl p-8 my-2 rounded-lg">
       <h2 className="text-2xl font-bold mb-4 text-[#0039a6]">Register</h2>
