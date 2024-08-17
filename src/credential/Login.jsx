@@ -32,7 +32,7 @@ const Login = () => {
     try {
       const response = await axios.get(
         "http://localhost:8080/registration/get"
-      ); // Load users to find the correct one
+      ); 
       const users = response.data;
       const user = users.find((u) => u.username === username);
 
